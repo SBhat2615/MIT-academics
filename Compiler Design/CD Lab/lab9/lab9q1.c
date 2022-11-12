@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include "getnexttoken.h"
-struct token tok;
+token tok;
 FILE * f;
 void program();
 void declarations();
@@ -590,6 +590,8 @@ void looping_stat()
         exit(1);
     }
 }
+
+
 int main(){
 f=fopen("input.c","r");
 tok=getnexttoken(f);

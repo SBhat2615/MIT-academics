@@ -3,10 +3,10 @@
 #include<stdlib.h>
 #include<ctype.h>
 
-struct token {
+typedef struct token{
   char token[100], tokenname[100];
   int row, col;
-};
+}token;
 
 char specialsym[] = {
   ';',
@@ -14,19 +14,20 @@ char specialsym[] = {
   ',',
   ':'
 };
-const char * dtype[] = {
+const char* dtype[] = {
   "int",
   "float",
   "char"
 };
-const char * predef[] = {
+const char* predef[] = {
   "printf",
   "scanf"
 };
 
 static int row = 1, col = 0;
 char c = ' ';
-char * keyword[] = {
+
+char *keyword[] = {
   "int",
   "float",
   "char",
@@ -43,7 +44,9 @@ char * keyword[] = {
   "switch",
   "boolean"
 };
-int retsize(char * str) {
+
+// Return size of datatype
+int retsize(char* str) {
   if (strcmp(str, "int") == 0)
     return 4;
   if (strcmp(str, "float") == 0)
@@ -53,18 +56,24 @@ int retsize(char * str) {
   else
     return 0;
 }
-int ispredef(char * str) {
+
+// Check if it is printf, scanf
+int ispredef(char* str) {
   for (int i = 0; i < 2; i++)
     if (strcmp(str, predef[i]) == 0)
       return 1;
   return 0;
 }
-int isdtype(char * str) {
+
+// Check if it is a datatype
+int isdtype(char* str) {
   for (int i = 0; i < 3; i++)
     if (strcmp(str, dtype[i]) == 0)
       return 1;
   return 0;
 }
+
+// Check if it is a special symbol
 int isspecialchar(char ch) {
   int flag = 0;
   for (int i = 0; i < 4; i++) {
@@ -76,19 +85,32 @@ int isspecialchar(char ch) {
   return flag;
 }
 int temp;
-void filltoken(struct token * tok, char * tokenname, char * token) {
+
+
+// Create a token
+void filltoken(token* tok, char* tokenname, char* token) {
   strcpy(tok -> token, token);
   strcpy(tok -> tokenname, tokenname);
   tok -> row = row;
   tok -> col = temp;
+  // Print token
+  printf("< %s , %s >", tok->token, tok->tokenname);
+  printf("\n");
 }
-struct token getnexttoken(FILE * fd) {
+
+
+// Generate Token
+token getnexttoken(FILE * fd) {
   char buf[100], d;
   int i = 1;
-  struct token tok;
+  token tok;
+
+  // While loop till EOF
   while ((c = fgetc(fd)) != EOF) {
     col++;
     temp = col;
+    
+    // Check if it is a alphabet
     if (isalpha(c) || c == '_') {
       buf[0] = c;
       c = fgetc(fd);
@@ -100,47 +122,66 @@ struct token getnexttoken(FILE * fd) {
         i++;
       }
       buf[i] = '\0';
+
+      // Move fd back to i-1 pos
       fseek(fd, -1, SEEK_CUR);
       col--;
+
+      // Check if it is a keyword
       for (i = 0; i < 14; i++) {
         if (strcmp(buf, keyword[i]) == 0) {
-          filltoken( & tok, "keyword", buf);
+          filltoken(&tok, "keyword", buf);
           return tok;
         }
       }
-      filltoken( & tok, "id", buf);
+      filltoken(&tok, "id", buf);
       return tok;
-    } else if (isspecialchar(c)) {
+    }
+
+    // Check if it is a special symbol
+    else if (isspecialchar(c)) {
       buf[0] = c;
       buf[1] = '\0';
-      filltoken( & tok, "special symbol", buf);
+      filltoken(&tok, "special symbol", buf);
       return tok;
-    } else if (c == '+') {
-      d = fgetc(fd);
-
+    }
+    
+    // Check between unary & binary '+' operator
+    else if (c == '+'){
+      d = fgetc(fd);    // IMP
       if (d == '+') {
         col++;
         filltoken( & tok, "incriment operator", "++");
         return tok;
       }
+      // Binary
       filltoken( & tok, "Arithmatic operator", "+");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '-') {
-      d = fgetc(fd);
-
+    }
+    
+    // Check between unary & binary '-' operator
+    else if (c == '-'){
+      d = fgetc(fd);    // IMP
       if (d == '-') {
         col++;
         filltoken( & tok, "incriment operator", "--");
         return tok;
       }
+      // Binary
       filltoken( & tok, "Arithmatic operator", "-");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '*') {
+    }
+    
+    // Check if it is a '*' operator
+    else if (c == '*') {
       filltoken( & tok, "Arithmatic operator", "*");
       return tok;
-    } else if (c == '<') {
+    }
+    
+    // Check if it is a '<' or '<=' operator
+    else if (c == '<') {
       d = fgetc(fd);
 
       if (d == '=') {
@@ -151,7 +192,10 @@ struct token getnexttoken(FILE * fd) {
       filltoken( & tok, "l", "<");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '>') {
+    }
+    
+    // Check if it is a '>' or '>=' operator
+    else if (c == '>') {
       d = fgetc(fd);
       col++;
       if (d == '=') {
@@ -162,7 +206,10 @@ struct token getnexttoken(FILE * fd) {
       fseek(fd, -1, SEEK_CUR);
       col--;
       return tok;
-    } else if (c == '!') {
+    }
+    
+    // Check if it is a '!' operator
+    else if (c == '!') {
       d = fgetc(fd);
       if (d == '=') {
         col++;
@@ -172,41 +219,67 @@ struct token getnexttoken(FILE * fd) {
       filltoken( & tok, "complement", "!");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '=') {
+    }
+    
+    // Check if it is a '=' or '==' operator
+    else if (c == '=') {
       d = fgetc(fd);
-
+      // Comparision
       if (d == '=') {
         col++;
         filltoken( & tok, "equal to", "==");
         return tok;
       }
-      filltoken( & tok, "assignment operator", "=");
+      // Assignment
+      filltoken(&tok, "assignment operator", "=");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } 
+    }
+
+    // Check if it is a '%' operator
     else if (c == '%') {
       filltoken( & tok, "mulop", "%");
       return tok;
     }
+
+    // Check if it is a left flower bracket
     else if (c == '{') {
       filltoken( & tok, "lfb", "{");
       return tok;
-    } else if (c == '}') {
+    }
+    
+    // Check if it is a right flower bracket
+    else if (c == '}') {
       filltoken( & tok, "rfb", "}");
       return tok;
-    } else if (c == '[') {
+    }
+
+    // Check if it is a left square bracket
+    else if (c == '[') {
       filltoken( & tok, "lsb", "[");
       return tok;
-    } else if (c == ']') {
+    }
+    
+    // Check if it is a right square bracket
+    else if (c == ']') {
       filltoken( & tok, "rsb", "]");
       return tok;
-    } else if (c == '(') {
+    }
+    
+    // Check if it is a left circle bracket
+    else if (c == '(') {
       filltoken( & tok, "lb", "(");
       return tok;
-    } else if (c == ')') {
+    }
+    
+    // Check if it is a right circle bracket
+    else if (c == ')') {
       filltoken( & tok, "rb", ")");
       return tok;
-    } else if (isdigit(c)) {
+    }
+    
+    // Check if it is a Number
+    else if (isdigit(c)) {
       buf[0] = c;
       c = fgetc(fd);
       col++;
@@ -220,7 +293,10 @@ struct token getnexttoken(FILE * fd) {
       fseek(fd, -1, SEEK_CUR);
       filltoken( & tok, "num", buf);
       return tok;
-    } else if (c == '"') {
+    }
+    
+    // Check if it is a string literal
+    else if (c == '"') {
       buf[0] = c;
       while ((c = fgetc(fd)) != '"') {
         col++;
@@ -230,9 +306,12 @@ struct token getnexttoken(FILE * fd) {
       col++;
       buf[i++] = c;
       buf[i] = '\0';
-      filltoken( & tok, "string literal", buf);
+      filltoken(&tok, "string literal", buf);
       return tok;
-    } else if (c == 39) {
+    }
+    
+    // Check if it is a number
+    else if (c == 39) {
       buf[0] = c;
       while ((c = fgetc(fd)) != 39) {
         col++;
@@ -242,9 +321,12 @@ struct token getnexttoken(FILE * fd) {
       buf[i++] = c;
       buf[i] = '\0';
       col++;
-      filltoken( & tok, "char const", buf);
+      filltoken(&tok, "char const", buf);
       return tok;
-    } else if (c == '&') {
+    }
+    
+    // Binary and Unary '&'
+    else if (c == '&') {
       d = fgetc(fd);
       if (d == '&') {
         col++;
@@ -254,7 +336,10 @@ struct token getnexttoken(FILE * fd) {
       filltoken( & tok, "binary and operator", "+");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '|') {
+    }
+    
+    // Binary & Unary '|'
+    else if (c == '|') {
       d = fgetc(fd);
       if (d == '|') {
         col++;
@@ -264,8 +349,13 @@ struct token getnexttoken(FILE * fd) {
       filltoken( & tok, "binary or operator", "|");
       fseek(fd, -1, SEEK_CUR);
       return tok;
-    } else if (c == '/') {
+    }
+    
+    // Comments
+    else if (c == '/') {
       d = fgetc(fd);
+
+      // Single line comments
       if (d == '/') {
         col++;
         while ((c = fgetc(fd)) != '\n') {
@@ -274,9 +364,12 @@ struct token getnexttoken(FILE * fd) {
         }
         row++;
         col = 0;
-      } else if (d == '*') {
+      }
+      
+      // Mutli-line comments
+      else if (d == '*') {
         col++;
-        do {
+        do{
           while ((d = fgetc(fd)) != '*') {
             if (d == '\n') {
               col = 0;
@@ -288,14 +381,20 @@ struct token getnexttoken(FILE * fd) {
           col++;
           c = fgetc(fd);
           col++;
-        } while (c != '/');
-      } else {
-      fseek(fd, -1, SEEK_CUR);
+        }while (c != '/');
+      }
+      
+      // Check if it is a division operator { single '/' }
+      else{
+        // One step back, to the '/'.
+        fseek(fd, -1, SEEK_CUR);
         col++;
-        filltoken( & tok, "arithmatic oprator", "/");
+        filltoken(&tok, "arithmatic oprator", "/");
         return tok;
       }
     }
+
+    // Header files
     else if (c == '#') {
       while ((c = fgetc(fd)) != '\n') {
         col++;
@@ -303,16 +402,23 @@ struct token getnexttoken(FILE * fd) {
       }
       row++;
       col = 0;
-    } else if (c == ' ') {
+    }
+    
+    // Empty Spaces
+    else if (c == ' '){
       c = fgetc(fd);
-      while (c == ' ') {
+      while(c == ' '){
         col++;
         c = fgetc(fd);
         continue;
       }
+      // One step back, to the start of the next token
       fseek(fd, -1, SEEK_CUR);
       continue;
-    } else if (c == '\n') {
+    }
+    
+    // Next line
+    else if (c == '\n') {
       row++;
       col = 0;
       continue;
@@ -320,4 +426,3 @@ struct token getnexttoken(FILE * fd) {
   }
   return tok;
 }
-

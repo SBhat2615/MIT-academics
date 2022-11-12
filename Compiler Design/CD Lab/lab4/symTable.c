@@ -25,6 +25,8 @@ typedef struct token{
   unsigned int r,c; 
   char type[100];
 }token;
+
+
 typedef struct lexeme{
   char token_type[20];
   char lexeme_name[20];
@@ -48,7 +50,7 @@ void insert_token(int r,int c,char *type,char *name){
   strcpy(token_array[token_counter].type,type);
   token_array[token_counter].c=c;
   token_array[token_counter].r=r;
-  token_array[token_counter].index=++token_counter;
+  token_array[token_counter].index = ++token_counter;
   
   memset(s,0,100);
 }
@@ -143,7 +145,8 @@ void create_all_tokens(){
     exit(0);
   }
   while(ca!=EOF){
-    s[i++]=ca;
+    s[i++]=ca;    // Store lexeme temporarily for comparision
+    // String literal condition
     if(ca=='"'){
       insert_token(r,c,name,s);
       while((ca=getc(fa))!='"' && ca!=EOF){
@@ -154,6 +157,7 @@ void create_all_tokens(){
       if(ca==EOF) throw_error(r,c);
       insert_token(r,c-i-1,"literal",s);
     }
+    // Spaces
     else if(ca==' '){
       s[--i]='\0';
       insert_token(r,c-i,name,s);

@@ -1,6 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 main(){
+  int student, regNo;
+  student = 1;
+  regNo = 2;
+  /*
   int a[15];
   int p, q, r, s;
   p = q+r%s;
@@ -16,4 +20,5 @@ main(){
   while(i<5){
     q = q+i;
   }
+  */
 }
