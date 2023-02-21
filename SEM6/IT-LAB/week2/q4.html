@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Lab 2</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Time table</h1>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <!-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+            </ol>
+            <div class="carousel-inner" style="background-color: gray;">
+                <div class="carousel-item active">
+                    <h3>First half Class Timetable</h3>
+                    <table class="table table-responsive table-bordered" style="border: 1ch;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Days
+                                </th>
+                                <th>
+                                    8-9 AM
+                                </th>
+
+                                <th>
+                                    9-10 AM
+                                </th>
+                                <th class="bg-secondary">
+                                    10-10:30AM
+                                </th>
+                                <th>
+                                    10:30-11:30 AM
+                                </th>
+                                <th>
+                                    11:30-12:30 PM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Monday
+                                    </th>
+                                <td>
+                                    ----
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    EEFM
+                                </td>
+                                <td>
+                                    OE-III
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Tuesday
+                                </th>
+                                <td colspan="5" style="text-align: center;">
+                                    ITL(D1)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Wednesday
+                                    <!-- </td> -->
+                                <td>
+                                    EEFM
+                                </td>
+                                <td>
+                                    PE-I
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    PE-II
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Thursday
+                                <td colspan="5" style="text-align: center;">
+                                    DSL(D1)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Friday
+                                    </td>
+                                <td>
+                                    ----
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    PE-II
+                                </td>
+                                <td>
+                                    OE-III
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Saturday
+                                    <td colspan="5" style="text-align: center;">
+                                        PCAPL(D1)
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="carousel-item">
+                    <h3>Second half Class Timetable</h3>
+                    <table class="table table-responsive table-bordered" style="border: 1ch;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Days
+                                </th>
+                                <th>
+                                    1-2 PM
+                                </th>
+
+                                <th>
+                                    2-3 PM
+                                </th>
+                                <th class="bg-secondary">
+                                    3-3:30 PM
+                                </th>
+                                <th>
+                                    3:30-4:30 PM
+                                </th>
+                                <th>
+                                    4:30-5:30 PM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Monday
+                                    <!-- </td> -->
+                                <td colspan="5" style="text-align: center;">
+                                    ITL(D2)
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>
+                                    Tuesday
+                                <td>
+                                    ----
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    EEFM
+                                </td>
+                                <td>
+                                    OE-III
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Wednesday
+                                <td colspan="5" style="text-align: center;">
+                                    DSL(D2)
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>
+                                    
+                                    Thursday
+                                    <!-- </td> -->
+                                <td>
+                                    EEFM
+                                </td>
+                                <td>
+                                    PE-I
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    PE-II
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Friday
+                                    <td colspan="5" style="text-align: center;">
+                                        PCAPL(D2)
+                                    </td>
+                                
+                            </tr>
+                            <tr>
+                                <th>
+                                    
+                                    Saturday
+                                    </td>
+                                <td>
+                                    ----
+                                </td>
+                                <td>
+                                    DS
+                                </td>
+                                <td class="bg-secondary">
+
+                                </td>
+                                <td>
+                                    PE-II
+                                </td>
+                                <td>
+                                    OE-III
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>
