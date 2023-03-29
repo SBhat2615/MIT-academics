@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Second Page</title>
+</head>
+<body>
+	<h1>Your Bill</h1>
+	<p>Brand: {{ brand }}</p>
+	<p>Item: {{ item }}</p>
+	<p>Quantity: {{ quantity }}</p>
+	<p>Price: {{ price }}</p>
+	<p>Total: {{ total }}</p>
+	<br>
+	<a href="{% url 'Firstpage' %}">Back to first page</a>
+</body>
+</html>

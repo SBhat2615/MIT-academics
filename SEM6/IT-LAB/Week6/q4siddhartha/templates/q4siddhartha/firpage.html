@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First Page</title>
+</head>
+<body>
+	<h1>Select your items</h1>
+	<form action="{% url 'Secondpage' %}" method="POST">
+		{% csrf_token %}
+		<p>Select a brand:</p>
+		<input type="radio" name="brand" value="HP"> HP<br>
+		<input type="radio" name="brand" value="Nokia"> Nokia<br>
+		<input type="radio" name="brand" value="Samsung"> Samsung<br>
+		<input type="radio" name="brand" value="Motorola"> Motorola<br>
+		<input type="radio" name="brand" value="Apple"> Apple<br><br>
+		
+		<p>Select items:</p>
+		<input type="checkbox" name="item" value="Mobile"> Mobile<br>
+		<input type="checkbox" name="item" value="Laptop"> Laptop<br><br>
+		
+		<p>Enter quantity:</p>
+		<input type="text" name="quantity"><br><br>
+		
+		<input type="submit" value="Produce Bill">
+	</form>
+</body>
+</html>

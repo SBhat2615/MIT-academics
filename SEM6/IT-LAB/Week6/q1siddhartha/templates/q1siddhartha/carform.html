@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Car Manufacturer and Model</title>
+</head>
+<body>
+    <h1>Select Car Manufacturer and Model</h1>
+    <form method="post" action="{% url 'q1siddhartha:carresult' %}">
+        {% csrf_token %}
+        <label for="manufacturer">Select Car Manufacturer:</label>
+        <select name="manufacturer" id="manufacturer">
+            <option value="toyota">Toyota</option>
+            <option value="honda">Honda</option>
+            <option value="nissan">Nissan</option>
+        </select>
+        <br><br>
+        <label for="model">Enter Car Model:</label>
+        <input type="text" name="model" id="model">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

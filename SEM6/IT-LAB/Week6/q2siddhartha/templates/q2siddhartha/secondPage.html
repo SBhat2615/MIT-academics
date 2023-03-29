@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Second Page</title>
+</head>
+<body>
+    <h1>Second Page</h1>
+    <p>Name: {{ name }}</p>
+    <p>Roll: {{ roll }}</p>
+    <p>Subject: {{ subject }}</p>
+    <form method="get" action="{% url 'first_page' %}">
+        <input type="submit" value="Go Back">
+    </form>
+</body>
+</html>
