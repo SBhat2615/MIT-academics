@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question1</title>
+<style>
+     tr:nth-child(even) {background-color: #18f21f;} 
+     tr:nth-child(odd) {background-color: #8af28e;}
+     th, thead {
+      background-color: #f0867d;
+      color: darkslateblue;
+     }
+     table, th, td {
+      border: 2px solid black;
+     }
+</style>
+</head>
+<body>
+    <h1>Category Table:</h1><br>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Visits</th>
+            <th>Likes</th>
+        </thead>
+        {% for category in categories %}
+        <tr>
+            <td>{{category.name}}</td>
+            <td>{{category.numberOfVisits}}</td>
+            <td>{{category.numberOfLikes}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <h1>Page Table</h1>
+    <table>
+        <thead>
+            <th>Category</th>
+            <th>Title</th>
+            <th>URL</th>
+            <th>View</th>
+        </thead>
+        {% for page in pages %}
+        <tr>
+            <td>{{page.category}}</td>
+            <td>{{page.title}}</td>
+            <td>{{page.url}}</td>
+            <td>{{page.view}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <button><a href="{% url 'index' %}">Back</a></button>
+</body>
+</html>

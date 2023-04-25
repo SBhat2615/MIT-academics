@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 1</title>
+<style>
+ol li {
+  background: #f58b82;
+  margin: 15px;
+}
+ol {
+  background: #f58b82;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Website Directory</h1>
+<ol>
+    <li>    <a href="{% url 'category' %}">Category Table</a>  </li>
+    <li>    <a href="{% url 'page' %}"> Page Table</a>     </li>
+    <li>    <a href="{% url 'display' %}">Display Both</a>     </li>
+</ol>
+</body>
+</html>

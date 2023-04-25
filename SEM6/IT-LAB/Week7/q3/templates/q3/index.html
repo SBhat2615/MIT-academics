@@ -1,0 +1,29 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lab 7 Question 3</title>
+        <style>
+            ol li {
+              background: #a4ebaa;
+              margin: 10px;
+            }
+            ol {
+              background: #4cff00;
+              padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="background-color: beige">Book Details</h1>
+        <ol>
+            <li><a href="{% url 'publisherEntry' %}">Register Publisher</a></li>
+            <li><a href="{% url 'authorEntry' %}">Register Author</a></li>
+            <li><a href="{% url 'bookEntry' %}">Register Book</a></li>
+            <li><a href="{% url 'searchBook' %}">Search Book</a></li>
+            <li><a href="{% url 'searchAuthor' %}">Search Author</a></li>
+            <li><a href="{% url 'searchPublisher' %}">Search Publisher</a></li>
+        </ol>
+    </body>
+</html>
